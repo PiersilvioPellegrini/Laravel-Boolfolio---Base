@@ -17,11 +17,11 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string("img_cover")->nullable();
+            $table->text("img_cover")->nullable();
             $table->string("name");
-            $table->text("description")->default("lorem Ipsum lorem Ipsum lorem Ipsum lorem Ipsumlorem Ipsum lorem Ipsum");
+            $table->text("description");
             $table->string("link_project")->nullable();
-            $table->date_create("creation_date");
+            $table->date("creation_date");
         });
     }
 

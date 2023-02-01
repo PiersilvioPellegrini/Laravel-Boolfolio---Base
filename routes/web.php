@@ -1,5 +1,7 @@
 <?php
-use App\Http\Controllers\admin\ProjectsController;
+use App\Http\Controllers\admin\ProjectController;
+use App\Http\Controllers\admin\DashBoardController;
+
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +24,9 @@ Route::middleware(['auth', 'verified'])
     ->prefix("admin") // porzione di uri che verrà inserita prima di ogni rotta
     ->name("admin.") // porzione di testo inserita prima del name di ogni rotta
     ->group(function () {
-        Route::resource("projects", ProjectsController::class);
+        
+        Route::get('/dashboard', [DashboardController::class, "index"])->name('dashboard');
+        Route::resource("projects", ProjectController::class);
         
     });
 Route::middleware('auth')->group(function () {
