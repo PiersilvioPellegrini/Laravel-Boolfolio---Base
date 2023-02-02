@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreProjectRequest;
 use App\Http\Requests\Admin\UpdateProjectRequest;
-use App\Http\Requests\UpdateProjectRequest as RequestsUpdateProjectRequest;
-use App\Models\Project;
 use Illuminate\Http\Request;
+
+use App\Models\Project;
 
 class ProjectController extends Controller
 {
@@ -82,7 +82,7 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(RequestsUpdateProjectRequest $request, Project $project)
+    public function update(UpdateProjectRequest $request, Project $project)
     {
         $data = $request->validated();
 
