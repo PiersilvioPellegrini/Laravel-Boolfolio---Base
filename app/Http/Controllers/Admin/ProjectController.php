@@ -1,7 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StoreProjectRequest;
+use App\Http\Requests\Admin\UpdateProjectRequest;
+use App\Http\Requests\UpdateProjectRequest as RequestsUpdateProjectRequest;
 use App\Models\Project;
 use Illuminate\Http\Request;
 
@@ -38,9 +42,12 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
-        
+        $data = $request->validated();
+        $singleProject = Project::create($data);
+
+        return redirect()->route("admin.projects.show", $singleProject->id);
     }
 
     /**
@@ -51,7 +58,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        return view("admin.project.show", compact("project"));
+        return view("admin.projects.show", compact("project"));
         
     }
 
@@ -75,9 +82,13 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
+    public function update(RequestsUpdateProjectRequest $request, Project $project)
     {
-        
+        $data = $request->validated();
+
+        $project->update($data);
+
+        return redirect()-> route("admin.projects.show", $project->id);
     }
 
     /**
