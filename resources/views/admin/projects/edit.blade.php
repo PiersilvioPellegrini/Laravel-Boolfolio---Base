@@ -10,7 +10,7 @@
     <h1>{{ $title }}</h1>
 
     {{-- Form per la creazione --}}
-    <form action="{{ route('admin.projects.update', $project->id) }}" method="POST" enctype="multipart/form-data>
+    <form action="{{ route('admin.projects.update', $project->id) }}" method="POST" enctype="multipart/form-data">
         @csrf()
         @method('put')
 

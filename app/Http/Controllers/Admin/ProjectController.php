@@ -95,13 +95,14 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
+        $path = null;
         $data = $request->validated();
 
-        if(key_exists('img_cover',$data)){
+        if($request->hasFile('img_cover')){
 
             $path =Storage::put("projects", $data['img_cover']);
 
-            Storage::delete($project-> img_cover);
+            // Storage::delete($project-> img_cover);
         }
 
         $project->update([

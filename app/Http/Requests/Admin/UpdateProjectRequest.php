@@ -33,6 +33,7 @@ class UpdateProjectRequest extends FormRequest
             "description" => "required|min:35",
             "link_project" => "min:20",
             "creation_date" => "required|date",
+            "img_cover"=> "nullable|image"
         ];
     }
 
