@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreProjectRequest;
 use App\Http\Requests\Admin\UpdateProjectRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Project;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -45,7 +47,16 @@ class ProjectController extends Controller
     public function store(StoreProjectRequest $request)
     {
         $data = $request->validated();
-        $singleProject = Project::create($data);
+
+        if(key_exists("img_cover", $data)){
+
+            $path = Storage::put("projects", $data["img_cover"]);
+        }
+        $singleProject = Project::create([
+                ...$data,
+                "img_cover"=> $path ?? '',
+                "user_id"=> Auth::id()
+        ]);
 
         return redirect()->route("admin.projects.show", $singleProject->id);
     }
@@ -86,7 +97,19 @@ class ProjectController extends Controller
     {
         $data = $request->validated();
 
-        $project->update($data);
+        if(key_exists('img_cover',$data)){
+
+            $path =Storage::put("projects", $data['img_cover']);
+
+            Storage::delete($project-> img_cover);
+        }
+
+        $project->update([
+            ...$data,
+
+            'img_cover'=> $path ?? $project->img_cover
+
+        ]);
 
         return redirect()-> route("admin.projects.show", $project->id);
     }
@@ -97,9 +120,14 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Project $project)
+    public function destroy($id)
     {
+        $project = Project::findOrFail($id);
+
+        if($project->img_cover){
+            Storage::delete($project->img_cover);
+        }
         $project ->delete();
-        return redirect()->route("admin.projects.index");
+
     }
 }

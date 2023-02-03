@@ -11,7 +11,7 @@
 <div class="card">
     {{-- Se cover_img esiste, mostra un tag img, altrimenti nulla --}}
 
-    <img src="{{ $project->img_cover }}" alt="" class="card-img-top">
+    <img src="{{ asset('storage/'. $project['img_cover'])}}" alt="" class="card-img-top">
 
 
     <div class="card-body">
