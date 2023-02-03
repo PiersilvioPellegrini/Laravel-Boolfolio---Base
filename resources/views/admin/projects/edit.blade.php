@@ -12,7 +12,7 @@
     {{-- Form per la creazione --}}
     <form action="{{ route('admin.projects.update', $project->id) }}" method="POST">
         @csrf()
-        @method('PUT')
+        @method('put')
 
         <div class="mb-3">
             <label class="form-label">IMG_COVER</label>
