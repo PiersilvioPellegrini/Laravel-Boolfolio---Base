@@ -36,6 +36,9 @@
                                             class="btn btn-primary mb-2"><i class="fas fa-pencil"></i>Edit Project</a>
                                         <a href="{{ route('admin.projects.show', $singleProject->id) }}"
                                             class="btn btn-info mb-2"><i class="fas fa-eye"></i>Show Projects</a>
+
+                                        {{-- <a href="{{ route('admin.projects.destroy', $singleProject->id) }}"
+                                            class="btn btn-danger mb-2"><i class="fas fa-eye"></i>Destroy Project</a> --}}
                                     </td>
                                 </tr>
                             @endforeach
